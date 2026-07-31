@@ -1,0 +1,562 @@
+{
+  "license_compliance": {
+    "metric": "license_compliance",
+    "definitions_version": "1.0.0",
+    "population_definition": "All rows in `repos` (every source platform, every status). license_spdx is GitHub's licenseInfo.spdxId for the repository; policy classification reuses scripts/lib/license_policy.py (the same fail-closed allowlist/blocklist that gates ingestion), so the report's compliance numbers and the pipeline's enforcement are definitionally identical.",
+    "denominators": {
+      "total_rows": 267228,
+      "non_gone_rows": 250900
+    },
+    "by_status": {
+      "blocked_license": 6402,
+      "cancelled": 349,
+      "convert_error": 1,
+      "converted": 982,
+      "distributed": 96497,
+      "fetch_error": 24,
+      "gone": 16328,
+      "security_blocked": 3678,
+      "skipped_binary": 3,
+      "skipped_too_large": 34,
+      "skipped_too_short": 303,
+      "unlicensed": 142627
+    },
+    "headline": {
+      "unlicensed_status_pct_of_total": 53.37,
+      "unlicensed_status_pct_of_non_gone": 56.85,
+      "blocked_license_pct_of_total": 2.4,
+      "no_redistribution_rights_pct_of_total": 55.77
+    },
+    "policy_classification": {
+      "permitted": 97009,
+      "blocked": 6407,
+      "unknown": 163812
+    },
+    "unknown_breakdown": {
+      "none": 149987,
+      "noassertion": 13656,
+      "unrecognized": 169
+    },
+    "top_spdx": {
+      "MIT": 78883,
+      "Apache-2.0": 16064,
+      "NOASSERTION": 13656,
+      "GPL-3.0": 2717,
+      "AGPL-3.0": 2624,
+      "BSD-3-Clause": 656,
+      "Unlicense": 438,
+      "CC0-1.0": 403,
+      "MPL-2.0": 339,
+      "GPL-2.0": 261,
+      "LGPL-3.0": 201,
+      "CC-BY-SA-4.0": 195,
+      "ISC": 181,
+      "MIT-0": 118,
+      "BSD-2-Clause": 104
+    }
+  },
+  "security_findings_ast10": {
+    "metric": "security_findings_ast10",
+    "definitions_version": "1.0.0",
+    "population_definition": "Graded rows: repos.security_grade IS NOT NULL (the deterministic pattern scanner, scripts/security_scan.py, over instruction-file content). Flag-level rates use repos.security_flags (JSON array of {severity, category, pattern, line}). status='security_blocked' rows are counted in the population \u2014 excluding blocked rows would survivor-bias the rates (same rule as the 2026-06-04 safety aggregate).",
+    "denominators": {
+      "graded_rows": 219024,
+      "flagged_rows": 11037,
+      "unparseable_flag_rows": 0
+    },
+    "grade_distribution": {
+      "fail": 9261,
+      "pass": 207988,
+      "warn": 1775
+    },
+    "hard_blocked_rows": 3678,
+    "flagged_pct_of_graded": 5.04,
+    "findings_by_category": {
+      "command": 2965,
+      "credential": 6339,
+      "exfiltration": 4698,
+      "file_access": 1496,
+      "injection": 1441,
+      "obfuscation": 30454
+    },
+    "findings_by_pattern": {
+      "mixed_scripts": 29039,
+      "unknown": 3012,
+      "postmark_token": 2901,
+      "password_assignment": 2018,
+      "exfiltrate_keyword": 1386,
+      "curl_post_data": 1246,
+      "webhook_exfil": 843,
+      "curl_pipe_bash": 768,
+      "rm_rf": 685,
+      "send_to_server": 683,
+      "jailbreak_keyword": 678,
+      "read_env_file": 668,
+      "generic_secret": 558,
+      "rm_rf_wildcard": 493,
+      "docker_socket": 254,
+      "ignore_instructions": 253,
+      "hidden_html_comment": 252,
+      "kill_all": 213,
+      "curl_pipe_python": 191,
+      "chmod_777": 136,
+      "read_etc_passwd": 108,
+      "read_ssh_keys": 101,
+      "zero_width_chars": 92,
+      "bearer_token": 80,
+      "read_credentials": 72,
+      "private_key_block": 72,
+      "developer_mode": 70,
+      "ssh_key_path_ref": 56,
+      "sudo_nopasswd": 54,
+      "wget_pipe_sh": 33,
+      "launchd_persist": 32,
+      "passwd_path_ref": 32,
+      "override_safety": 24,
+      "nc_reverse_shell": 23,
+      "shell_init_append": 22,
+      "cron_install": 21,
+      "hex_encoded": 20,
+      "oversized_content": 17,
+      "aws_creds_path_ref": 17,
+      "eval_exec": 16,
+      "mkfs": 15,
+      "history_access": 14,
+      "base64_pipe_exec": 13,
+      "forget_rules": 13,
+      "openai_api_key": 13,
+      "you_are_now": 10,
+      "access_proc": 9,
+      "format_disk": 9,
+      "send_env_to_url": 8,
+      "slack_token": 7,
+      "iptables_flush": 7,
+      "dd_destructive": 6,
+      "resend_key": 5,
+      "stripe_key": 4,
+      "kube_config": 3,
+      "aws_access_key": 3,
+      "github_token": 3,
+      "google_api_key": 3,
+      "disregard_prompt": 2,
+      "disable_firewall": 2,
+      "new_persona": 2,
+      "anthropic_api_key": 1,
+      "compile_exec_string": 1,
+      "pretend_no_restrict": 1
+    },
+    "findings_by_severity": {
+      "medium": 3472,
+      "high": 9086,
+      "critical": 4519,
+      "low": 30316
+    },
+    "scan_results_rule_set_versions": [
+      "4.0"
+    ],
+    "ast10_projection": {
+      "map_version": "0.1-draft",
+      "map_status": "DRAFT \u2014 TomeVault editorial projection, pending the standards-alignment workstream review. Pegged to the OWASP Agentic Skills Top 10 INCUBATOR DRAFT category set (project unreleased; v1.0 targeted Q4 2026 per its own roadmap; categories verbatim-verified 2026-06-11, see reports/2026-06-11/state-report-chronicle-research-round2.md). If OWASP revises categories at release, bump map_version and add an errata note; the by-category/by-pattern ground truth in security_findings output is unaffected.",
+      "counts": {
+        "AST01": 38437,
+        "AST02": 992,
+        "AST03": 1625,
+        "AST04": 6339
+      },
+      "unmapped": {},
+      "ast_category_names": {
+        "AST01": "Malicious Skills",
+        "AST02": "Supply Chain Compromise",
+        "AST03": "Over-Privileged Skills",
+        "AST04": "Insecure Metadata",
+        "AST05": "Unsafe Deserialization",
+        "AST06": "Weak Isolation",
+        "AST07": "Update Drift",
+        "AST08": "Poor Scanning",
+        "AST09": "No Governance",
+        "AST10": "Cross-Platform Reuse"
+      }
+    }
+  },
+  "signing_adoption": {
+    "metric": "signing_adoption",
+    "definitions_version": "1.0.0",
+    "population_definition": "Deterministic sample of distinct (owner, repo) with status='distributed' (the redistributable corpus), ordered by a fixed multiplicative hash of the row id, probed live via the GitHub git/trees API at HEAD (recursive). Sample order is reproducible for a given corpus snapshot; the corpus itself moves between runs.",
+    "signature_definition": {
+      "suffixes": [
+        ".oms.sig",
+        ".sig",
+        ".asc",
+        ".minisig",
+        ".sigstore",
+        ".sigstore.json",
+        ".intoto.jsonl"
+      ],
+      "basenames": [
+        "provenance.json"
+      ],
+      "trust_docs_counted_separately": [
+        "skill-card.md"
+      ]
+    },
+    "sample_size_requested": 1000,
+    "sampled": 1000,
+    "probed": 986,
+    "gone_or_inaccessible": 14,
+    "repos_with_signature_artifact": 3,
+    "signature_present_pct_of_probed": 0.3,
+    "repos_with_trust_doc": 0,
+    "trust_doc_pct_of_probed": 0.0,
+    "signature_artifact_paths": {
+      "peteromallet/vibecomfy": [
+        "vibecomfy/porting/cache/object_info/provenance.json"
+      ],
+      "plurigrid/asi": [
+        "ies/music-topos/spin.sig"
+      ],
+      "wolfenazz/YzPzCode": [
+        "app/desgin/design-templates/live-artifact/examples/stock-portfolio-live/provenance.json",
+        "app/desgin/specs/2026-04-29-live-artifacts/examples/minimal-static/provenance.json",
+        "app/desgin/templates/live-artifacts/otd-operations-brief/provenance.json"
+      ]
+    },
+    "trust_doc_repos": []
+  },
+  "timeseries": {
+    "metric": "timeseries",
+    "definitions_version": "1.0.0",
+    "population_definition": "All rows in `repos` (every source platform), bucketed by ISO week of repos.created_at. created_at is the PIPELINE INGESTION timestamp, not the upstream file's creation date: the series describes what the pipeline observed inside its measurement window, not calendar-year ecosystem growth. The window start is the pipeline's first discovery run.",
+    "window": {
+      "first_observed": "2026-04-02 19:31:13",
+      "last_observed": "2026-06-11 13:24:40"
+    },
+    "total_rows": 267228,
+    "families": [
+      "agents",
+      "claude",
+      "copilot",
+      "cursor",
+      "gemini",
+      "other",
+      "skill",
+      "windsurf"
+    ],
+    "weekly_new": {
+      "2026-W14": {
+        "other": 41918,
+        "agents": 759,
+        "claude": 312,
+        "copilot": 2,
+        "cursor": 2,
+        "gemini": 48,
+        "skill": 135878
+      },
+      "2026-W15": {
+        "other": 44,
+        "agents": 1300,
+        "claude": 5298,
+        "copilot": 1949,
+        "gemini": 2214,
+        "skill": 1105,
+        "cursor": 6577,
+        "windsurf": 2447
+      },
+      "2026-W16": {
+        "claude": 507,
+        "copilot": 77,
+        "cursor": 483,
+        "skill": 183,
+        "agents": 215,
+        "other": 3,
+        "gemini": 12,
+        "windsurf": 3
+      },
+      "2026-W17": {
+        "agents": 3358,
+        "claude": 4390,
+        "copilot": 493,
+        "cursor": 1348,
+        "gemini": 221,
+        "windsurf": 34,
+        "skill": 224,
+        "other": 4
+      },
+      "2026-W18": {
+        "agents": 3363,
+        "claude": 4330,
+        "copilot": 574,
+        "cursor": 1449,
+        "gemini": 239,
+        "windsurf": 43,
+        "skill": 209
+      },
+      "2026-W19": {
+        "agents": 4029,
+        "claude": 5744,
+        "copilot": 1029,
+        "cursor": 2495,
+        "gemini": 332,
+        "skill": 205,
+        "windsurf": 112
+      },
+      "2026-W20": {
+        "other": 191,
+        "agents": 1453,
+        "claude": 1761,
+        "copilot": 555,
+        "cursor": 1314,
+        "gemini": 306,
+        "skill": 149,
+        "windsurf": 38
+      },
+      "2026-W21": {
+        "agents": 1952,
+        "claude": 2644,
+        "copilot": 648,
+        "cursor": 3030,
+        "gemini": 137,
+        "windsurf": 71,
+        "other": 5747,
+        "skill": 3866
+      },
+      "2026-W22": {
+        "agents": 852,
+        "claude": 884,
+        "copilot": 225,
+        "cursor": 624,
+        "gemini": 39,
+        "other": 88,
+        "skill": 202,
+        "windsurf": 7
+      },
+      "2026-W23": {
+        "other": 121,
+        "agents": 1284,
+        "claude": 1381,
+        "copilot": 341,
+        "cursor": 760,
+        "gemini": 67,
+        "skill": 91,
+        "windsurf": 20
+      },
+      "2026-W24": {
+        "agents": 284,
+        "claude": 260,
+        "copilot": 54,
+        "cursor": 146,
+        "gemini": 12,
+        "skill": 29,
+        "other": 33,
+        "windsurf": 1
+      }
+    },
+    "weekly_new_distributed": {
+      "2026-W14": {
+        "skill": 46305
+      },
+      "2026-W15": {
+        "agents": 444,
+        "claude": 1534,
+        "copilot": 545,
+        "gemini": 511,
+        "skill": 633,
+        "cursor": 1782,
+        "windsurf": 510
+      },
+      "2026-W16": {
+        "claude": 239,
+        "copilot": 42,
+        "cursor": 156,
+        "skill": 54,
+        "agents": 149,
+        "gemini": 11,
+        "windsurf": 3
+      },
+      "2026-W17": {
+        "agents": 2058,
+        "claude": 2621,
+        "copilot": 319,
+        "cursor": 784,
+        "gemini": 141,
+        "windsurf": 13,
+        "skill": 67
+      },
+      "2026-W18": {
+        "agents": 1871,
+        "claude": 2355,
+        "copilot": 300,
+        "cursor": 596,
+        "gemini": 138,
+        "skill": 54,
+        "windsurf": 25
+      },
+      "2026-W19": {
+        "agents": 2381,
+        "claude": 3373,
+        "copilot": 622,
+        "cursor": 1328,
+        "gemini": 192,
+        "skill": 31,
+        "windsurf": 87
+      },
+      "2026-W20": {
+        "agents": 1375,
+        "claude": 1642,
+        "copilot": 536,
+        "cursor": 1218,
+        "gemini": 297,
+        "skill": 146,
+        "windsurf": 22
+      },
+      "2026-W21": {
+        "agents": 1845,
+        "claude": 2517,
+        "copilot": 629,
+        "cursor": 2899,
+        "gemini": 130,
+        "windsurf": 71,
+        "skill": 3624
+      },
+      "2026-W22": {
+        "agents": 823,
+        "claude": 840,
+        "copilot": 222,
+        "cursor": 591,
+        "gemini": 39,
+        "skill": 192,
+        "windsurf": 7
+      },
+      "2026-W23": {
+        "agents": 1245,
+        "claude": 1326,
+        "copilot": 330,
+        "cursor": 751,
+        "gemini": 64,
+        "skill": 88,
+        "windsurf": 19
+      },
+      "2026-W24": {
+        "agents": 268,
+        "claude": 241,
+        "copilot": 51,
+        "cursor": 137,
+        "gemini": 9,
+        "skill": 28,
+        "windsurf": 1
+      }
+    },
+    "cumulative": {
+      "2026-W14": {
+        "agents": 759,
+        "claude": 312,
+        "copilot": 2,
+        "cursor": 2,
+        "gemini": 48,
+        "other": 41918,
+        "skill": 135878,
+        "windsurf": 0
+      },
+      "2026-W15": {
+        "agents": 2059,
+        "claude": 5610,
+        "copilot": 1951,
+        "cursor": 6579,
+        "gemini": 2262,
+        "other": 41962,
+        "skill": 136983,
+        "windsurf": 2447
+      },
+      "2026-W16": {
+        "agents": 2274,
+        "claude": 6117,
+        "copilot": 2028,
+        "cursor": 7062,
+        "gemini": 2274,
+        "other": 41965,
+        "skill": 137166,
+        "windsurf": 2450
+      },
+      "2026-W17": {
+        "agents": 5632,
+        "claude": 10507,
+        "copilot": 2521,
+        "cursor": 8410,
+        "gemini": 2495,
+        "other": 41969,
+        "skill": 137390,
+        "windsurf": 2484
+      },
+      "2026-W18": {
+        "agents": 8995,
+        "claude": 14837,
+        "copilot": 3095,
+        "cursor": 9859,
+        "gemini": 2734,
+        "other": 41969,
+        "skill": 137599,
+        "windsurf": 2527
+      },
+      "2026-W19": {
+        "agents": 13024,
+        "claude": 20581,
+        "copilot": 4124,
+        "cursor": 12354,
+        "gemini": 3066,
+        "other": 41969,
+        "skill": 137804,
+        "windsurf": 2639
+      },
+      "2026-W20": {
+        "agents": 14477,
+        "claude": 22342,
+        "copilot": 4679,
+        "cursor": 13668,
+        "gemini": 3372,
+        "other": 42160,
+        "skill": 137953,
+        "windsurf": 2677
+      },
+      "2026-W21": {
+        "agents": 16429,
+        "claude": 24986,
+        "copilot": 5327,
+        "cursor": 16698,
+        "gemini": 3509,
+        "other": 47907,
+        "skill": 141819,
+        "windsurf": 2748
+      },
+      "2026-W22": {
+        "agents": 17281,
+        "claude": 25870,
+        "copilot": 5552,
+        "cursor": 17322,
+        "gemini": 3548,
+        "other": 47995,
+        "skill": 142021,
+        "windsurf": 2755
+      },
+      "2026-W23": {
+        "agents": 18565,
+        "claude": 27251,
+        "copilot": 5893,
+        "cursor": 18082,
+        "gemini": 3615,
+        "other": 48116,
+        "skill": 142112,
+        "windsurf": 2775
+      },
+      "2026-W24": {
+        "agents": 18849,
+        "claude": 27511,
+        "copilot": 5947,
+        "cursor": 18228,
+        "gemini": 3627,
+        "other": 48149,
+        "skill": 142141,
+        "windsurf": 2776
+      }
+    }
+  },
+  "_source_snapshot": "2026-06-11"
+}

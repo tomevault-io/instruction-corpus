@@ -1,0 +1,79 @@
+{
+  "series_title": "The TomeVault Instruction Corpus",
+  "edition": "2026-07",
+  "schema_version": "1.0.0",
+  "licence": "CC-BY-4.0",
+  "row_count": 229375,
+  "rows_scanned": 229650,
+  "owners_excluded": 16,
+  "rows_excluded": 275,
+  "population": "One row per instruction FILE INSTANCE that the pipeline has fetched, converted, and RETAINED THE BODY OF. A row is a file, NOT a repository and NOT an owner: one repository commonly contributes many rows, and a widely-forked file appears once per fork. Any count derived from this table is a count of files unless it explicitly de-duplicates. Two exclusions narrow it further: rows whose deterministic security grade is 'fail', and rows the pipeline tracks without a stored body, which cannot be measured and are therefore absent rather than counted as passing. The retained-body requirement is the largest of the three filters, so this is a measurable subset of what we track and not a census of it.",
+  "optout_policy": "Owners are excluded at the OWNER level. The exporter first collects every owner having at least one row with opted_out = 1, then drops all rows belonging to those owners. Row-level filtering would leak the untouched rows of an owner who has already asked to be removed.",
+  "ingestion_framing": "`ingested_week` is the ISO week in which OUR PIPELINE first observed the file, not the week the file was authored upstream. The series describes the pipeline's observation window and must never be presented as ecosystem growth. Deriving an adoption curve from this column is a misuse of it.",
+  "loadability_rules_version": "loadability-v1.1",
+  "model_status_updated": "2026-06-23",
+  "formats": {
+    "skill_md": 187406,
+    "agents_md": 17536,
+    "claude_md": 10846,
+    "other": 5570,
+    "cursorrules_mdc": 3638,
+    "copilot_instructions": 2244,
+    "cursor_mdc": 994,
+    "gemini_md": 622,
+    "cursorrules": 290,
+    "windsurfrules": 142,
+    "windsurf_rules": 87
+  },
+  "generated_at": "2026-07-30T20:49:48.634536+00:00",
+  "aggregate_snapshot": "2026-06-11",
+  "published": {
+    "devto": {
+      "target": "devto",
+      "id": 4282048,
+      "url": "https://dev.to/olijboyd/the-tomevault-instruction-corpus-2026-07-31kk-temp-slug-72408",
+      "published": null
+    },
+    "huggingface": {
+      "target": "huggingface",
+      "repo_id": "TomeVault/instruction-corpus",
+      "url": "https://huggingface.co/datasets/TomeVault/instruction-corpus",
+      "commit": "8f45e4f02cb6497c03d0b223b00e513c696598b4"
+    },
+    "kaggle": {
+      "target": "kaggle",
+      "dataset": "tomevault/ai-instruction-corpus",
+      "action": "created",
+      "visibility": "private",
+      "url": "https://www.kaggle.com/datasets/tomevault/ai-instruction-corpus",
+      "next": "Private. Review it, then flip Visibility to Public on the dataset's Settings tab."
+    },
+    "zenodo": {
+      "target": "zenodo",
+      "sandbox": false,
+      "record_id": 21724370,
+      "doi": "10.5281/zenodo.21724370",
+      "concept_doi": "10.5281/zenodo.21724369",
+      "url": "https://zenodo.org/record/21724370",
+      "remember": "Set ZENODO_CONCEPT_RECORD to this record_id so the next edition publishes as a new version instead of a separate record."
+    }
+  },
+  "files": {
+    "LICENSE.txt": {
+      "sha256": "3aba8b3738545657a8994feab201c1f9612275e599f3b0991a364d0e3ce307e5",
+      "bytes": 230
+    },
+    "README.md": {
+      "sha256": "501c9eb663032af80980818fc705a89277d1298c9bed44e598d111beccf66303",
+      "bytes": 10826
+    },
+    "aggregate.json": {
+      "sha256": "7f0c7421075a40d72865fd028c04fdec47615f0fbe9f3d7ec1c99c40eeb63269",
+      "bytes": 15094
+    },
+    "instruction-files.parquet": {
+      "sha256": "bd463168ea58b91ad26527b2b468e198b203f08dd3aefbdf487f0da273b3a211",
+      "bytes": 2382649
+    }
+  }
+}
