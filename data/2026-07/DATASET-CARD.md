@@ -20,7 +20,7 @@ configs:
 
 De-identified structural measurements of AI instruction files (CLAUDE.md, AGENTS.md, SKILL.md, .cursorrules and related conventions).
 
-Edition 2026-07. 229,375 files. Schema version 1.0.0. Licensed CC BY 4.0.
+Edition 2026-07. 229,720 files. Schema version 1.0.0. Licensed CC BY 4.0.
 
 ## What this is
 
@@ -37,7 +37,7 @@ ruleset thinks an agent asked to load it would get what the author intended.
 It contains no file contents, no owner names, no repository names and no URLs.
 Every measurement in it is reproducible from the method described below.
 
-One row per instruction FILE INSTANCE that the pipeline has fetched, converted, and RETAINED THE BODY OF. A row is a file, NOT a repository and NOT an owner: one repository commonly contributes many rows, and a widely-forked file appears once per fork. Any count derived from this table is a count of files unless it explicitly de-duplicates. Two exclusions narrow it further: rows whose deterministic security grade is 'fail', and rows the pipeline tracks without a stored body, which cannot be measured and are therefore absent rather than counted as passing. The retained-body requirement is the largest of the three filters, so this is a measurable subset of what we track and not a census of it.
+One row per instruction FILE INSTANCE the pipeline has fetched and converted. A row is a file, NOT a repository and NOT an owner: one repository commonly contributes many rows, and a widely-forked file appears once per fork. Any count derived from this table is a count of files unless it explicitly de-duplicates. Files whose deterministic security grade is 'fail' are excluded. Each file is measured once, when first seen, and the measurements are retained permanently, so a file stays in the population for every later edition even after we discard its body for storage reasons. Files first crawled before that retention policy began are absent, which makes early editions a floor rather than a census.
 
 ## Source and updates
 
@@ -100,13 +100,13 @@ format. Every measurement in this release comes from deterministic rulesets, not
 from a language model, so the same input always produces the same row.
 
 Loadability findings come from the same ruleset our product runs, version
-`loadability-v1.1`. The `has_broken_reference` column is
+`None`. The `has_broken_reference` column is
 true when a file fires either the stale-path check or the reference-portability
 check, meaning it points at something that has gone or that will not travel with
 the file when it moves.
 
 Retired-model flags come from a hand-curated list of model identifiers and their
-lifecycle status, last updated `2026-06-23`. Only
+lifecycle status, last updated `2026-07-31`. Only
 identifiers marked deprecated, superseded or retired are flagged. Matching is
 whole-token, so `gpt-4` does not match inside `gpt-4o`.
 
@@ -114,8 +114,13 @@ Licence classification reuses the same policy module that gates our own
 ingestion, so the compliance figures here and our enforcement are definitionally
 the same thing.
 
-`aggregate.json` in this release carries the corresponding month's headline
-metrics computed over the same snapshot.
+`aggregate.json` carries the headline metrics from snapshot
+`2026-07`, which is the measurement run this edition is
+built from. The two files answer different questions and do not share a
+denominator: the parquet is one row per retained-body file instance, while each
+metric in the aggregate declares its own population in its own `population`
+field. Read a figure with the population beside it, and do not reconcile a count
+from one against a count from the other.
 
 ## Known biases
 
@@ -134,6 +139,14 @@ anyone has been.
 repositories reaches. Private repositories, self-hosted platforms and files
 inside archives are absent, and there is no reason to assume the absent
 population resembles this one.
+
+**Early editions are a floor, not a census.** Each file is measured once, when
+first seen, and those measurements are kept permanently. Files first crawled
+before that retention began were never measured and cannot be recovered without
+re-fetching them, so they are missing. Counts will therefore rise across the
+first few editions partly because coverage is filling in, not only because the
+ecosystem is growing. Treat early growth in absolute counts with suspicion and
+prefer the proportions, which are far less affected.
 
 **Security-failing files are excluded.** Rows whose deterministic security grade
 is `fail` were removed before export. The remaining population is therefore
