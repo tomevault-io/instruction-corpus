@@ -1,0 +1,23 @@
+cff-version: 1.2.0
+message: "If you use this dataset, please cite it using the metadata below."
+type: dataset
+title: "The TomeVault Instruction Corpus"
+abstract: >-
+  Open, de-identified monthly measurements of the AI instruction files teams
+  commit to their repositories (CLAUDE.md, AGENTS.md, SKILL.md, .cursorrules
+  and related conventions). No file contents, owner names, repository names
+  or URLs.
+authors:
+  - name: "TomeVault"
+    website: "https://tomevault.io"
+version: "2026-07"
+date-released: "2026-08-01"
+license: CC-BY-4.0
+repository: "https://github.com/tomevault-io/instruction-corpus"
+url: "https://tomevault.io"
+keywords:
+  - AI instruction files
+  - CLAUDE.md
+  - AGENTS.md
+  - SKILL.md
+  - dataset
