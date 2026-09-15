@@ -11,7 +11,15 @@ authors:
   - name: "TomeVault"
     website: "https://tomevault.io"
 version: "2026-07"
-date-released: "2026-08-01"
+date-released: "2026-07-31"
+doi: 10.5281/zenodo.21724370
+identifiers:
+  - type: doi
+    value: 10.5281/zenodo.21724369
+    description: "Concept DOI, always resolves to the newest edition"
+  - type: doi
+    value: 10.5281/zenodo.21724370
+    description: "Edition 2026-07"
 license: CC-BY-4.0
 repository: "https://github.com/tomevault-io/instruction-corpus"
 url: "https://tomevault.io"
